@@ -37,7 +37,7 @@ import com.wilkom.mythymeleafrestapi.validator.PostValidator;
 /**
  * Gestion des Posts
  * Classe controller qui fournit les services REST et les CRUD sur les pages JSP
- * @author Koffi
+ * @author Koffi K. 
  *
  */
 @Controller
@@ -116,7 +116,7 @@ public class PostController {
 	@RequestMapping(value = "/posts/create", method = RequestMethod.GET)
 	public String showForm(Model model) {
 		Post post = new Post();
-		model.addAttribute("create", post);
+		model.addAttribute("mypost", post);
 
 		return "posts/create";
 	}
@@ -124,7 +124,7 @@ public class PostController {
 	// Afficher update form
 	@GetMapping("/posts/{postId}/update")
 	public String showUpdateForm(@PathVariable("postId") long id, Model model) {
-		model.addAttribute("update", postService.getPostById(id));
+		model.addAttribute("post", postService.getPostById(id));
 
 		return "posts/update";
 
@@ -140,6 +140,19 @@ public class PostController {
 		return new ResponseEntity<Collection<Post>>(postService.getAllPosts(), HttpStatus.FOUND);
 	}
 
+	
+	/**
+	 * Methode service REST pour afficher un post
+	 * @param postId
+	 * @return
+	 */
+	@GetMapping("/test/{id}")
+	public ResponseEntity<String> getId(@PathVariable("id") String id) {
+		logger.info("Id : " + id);
+		return new ResponseEntity<String>("Voici mr "+id, HttpStatus.FOUND);
+	}
+
+	
 	/**
 	 * Methode service REST pour afficher un post
 	 * @param postId

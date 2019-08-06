@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>REST Api with Thymeleaf CRUD Example</title>
+
+
+<link th:href="@{/bootstrap/css/hello.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+<script
+	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js}"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('#myButton').click(function() {
+			$('#label').text('Mon label');
+		});
+		
+		$('#myButton1').click(function() {
+			var name = $('#name').val();
+			$.ajax({
+				url : 'http://localhost:8082/mythymeleaf-rest-api/test/kouma',
+				error: function() {
+					$('#label1').html('An error has occurred');
+					},
+				success : function (result){
+					$('#label1').text(result);
+				},
+				type: 'GET'
+			})
+		});
+		alert('Alerte ici');
+	});
+</script>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse ">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="@{/}">My Blog</a>
+			</div>
+			<div id="navbar">
+				<ul class="nav navbar-nav">
+					<li class="active"><a th:href="@{/posts/create}">Creer
+							post</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="container">
+		<h1>Welcome!</h1>
+
+		<p id="myId">
+			Click <a th:href="@{/hello}">here</a> to see  a greeting.
+
+		</p>
+		<button id="myButton" type="submit" class="btn btn-primary mb-2"
+			th:text="#{button.submit}"></button>
+			<label id="label"></label>
+			<hr>
+			<input id="name">
+			<button id="myButton1" type="submit" class="btn btn-primary mb-2"
+			th:text="#{button.submit}"></button>
+			<label id="label1"></label>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>#ID</th>
+					<th>Titre</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${posts == null}">
+					<td>Aucun post n est publie ici</td>
+					<td>--</td>
+					<td>--</td>
+				</tr>
+				<tr th:each="post : ${posts}">
+					<td><span th:text="${post.id}"></span></td>
+					<td><span th:text="${post.title}"></span></td>
+					<td><a class="btn btn-info" th:href="@{/posts/${post.id}}">Détail</a>
+						<a class="btn btn-primary" th:href="@{/posts/${post.id}/update}">Modifier</a>
+						<a class="btn btn-danger" th:href="@{/posts/${post.id}/delete}">Supprimer</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<hr>
+	<footer>
+		<p class="text-center">
+			&copy; <a th:href="@{https://www.linkedin.com/in/wilkom2009/}"
+				target="_blanck">wilkom</a> 2019
+		</p>
+	</footer>
+
+
+
+
+
+	<script th:src="@{/bootstrap/js/hello.js}"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

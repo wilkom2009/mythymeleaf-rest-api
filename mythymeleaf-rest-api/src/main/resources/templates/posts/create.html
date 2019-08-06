@@ -34,6 +34,21 @@
 		<p>
 			Click <a th:href="@{/hello}">here</a> to see a greeting.
 		</p>
+
+		<form th:action="@{/posts}" class="form-horizontal" th:objet="${mypost}" method="post">
+			<div class="form-group">
+				<label for="formGroupExampleInput" th:text="#{post.title}">Titre</label> <input
+					type="text" class="form-control" id="formGroupExampleInput"
+					placeholder="Titre ici" th:field="*{mypost.title}" >
+			</div>
+			<div class="form-group">
+				<label for="formGroupExampleInput2" th:text="#{post.body}">Contenu</label> <textarea
+					class="form-control" id="formGroupExampleInput2"
+					placeholder="Contenu ici" th:field="*{mypost.body}"></textarea>
+			</div>
+			<hr>
+			<button type="submit" class="btn btn-primary mb-2" th:text="#{button.submit}"></button>
+		</form>
 	</div>
 
 
