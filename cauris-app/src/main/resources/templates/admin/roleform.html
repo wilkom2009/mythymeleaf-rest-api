@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/fragments/template}">
+
+<head>
+<title>Liste des roles</title>
+</head>
+<body id="page-top">
+	<section layout:fragment="content">
+		<!-- Breadcrumbs-->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
+			<li class="breadcrumb-item active">Roles</li>
+		</ol>
+		<form class="needs-validation" th:action="@{/roles/add}"
+			th:object="${role}" method="post">
+			<div class="form-row">
+				<div class="col-md-4 mb-3">
+					<label for="nameId" th:text="#{label.pages.role.name}"></label> <input
+						type="text" class="form-control" id="nameId"
+						th:placeholder="#{label.pages.role.name}" th:field="*{name}"
+						required />
+					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+						class="error">Looks good!</div>
+				</div>
+			</div>
+			<button class="btn btn-success btn-sm" type="submit"
+				th:text="#{button.label.save}"></button>
+		</form>
+	</section>
+</body>
+</html>

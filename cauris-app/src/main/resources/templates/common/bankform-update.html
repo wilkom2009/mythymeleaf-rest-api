@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/fragments/template}">
+
+<head>
+<title th:text="#{label.pages.bank.title}"></title>
+</head>
+<body id="page-top">
+	<section layout:fragment="content">
+
+		<div th:unless="${message == null}"
+			class="alert alert-danger alert-dismissible fade show">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>Erreur!</strong> <span th:text="${message}"></span>
+		</div>
+
+		<!-- Breadcrumbs-->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
+			<li class="breadcrumb-item active"
+				th:text="#{label.pages.bank.title}">Roles</li>
+		</ol>
+
+		<form class="needs-validation" th:action="@{/banks/update/{id}(id=${bank.code})}"
+			th:object="${bank}" method="post">
+
+			<!-- 			Swift -->
+			<div class="form-row">
+				<div class="col-md-4 mb-3">
+					<label for="bkId" th:text="#{label.pages.bank.swift}"></label> <input
+						type="text" class="form-control" id="bkId"
+						th:placeholder="#{label.pages.bank.swift}" th:field="*{swift}"
+						required />
+					<div th:if="${#fields.hasErrors('swift')}" th:errors="*{swift}"
+						class="error">Looks good!</div>
+				</div>
+			</div>
+
+			<!-- 			Name -->
+			<div class="form-row">
+				<div class="col-md-4 mb-3">
+					<label for="nameId" th:text="#{label.pages.bank.name}"></label> <input
+						type="text" class="form-control" id="nameId"
+						th:placeholder="#{label.pages.bank.name}" th:field="*{name}"
+						required />
+					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+						class="error">Looks good!</div>
+				</div>
+			</div>
+
+			<!-- 			City -->
+			<div class="form-row">
+				<div class="col-md-4 mb-3">
+					<label for="idc" th:text="#{label.pages.bank.city}"></label> <select
+						class="form-control" th:field="*{adresse.city}" required id="idc">
+						<option th:each="city : ${cities}" th:value="${city.id}"
+							th:text="${city.name}"></option>
+					</select>
+				</div>
+			</div>
+
+			<button class="btn btn-success btn-sm" type="submit"
+				th:text="#{button.label.save}"></button>
+		</form>
+	</section>
+</body>
+</html>

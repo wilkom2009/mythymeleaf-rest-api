@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/fragments/template}">
+
+<head>
+<title th:text="#{label.pages.resourceperson.title}"></title>
+<meta charset="UTF-8">
+</head>
+<body id="page-top">
+	<section layout:fragment="content">
+
+		<div th:unless="${message == null}"
+			class="alert alert-danger alert-dismissible fade show">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>Erreur!</strong> <span th:text="${message}"></span>
+		</div>
+
+		<!-- Breadcrumbs-->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
+			<li class="breadcrumb-item active"
+				th:text="#{label.pages.resourceperson.title}">Roles</li>
+		</ol>
+
+		<form class="needs-validation" th:action="@{/resourcepersons/add}"
+			th:object="${person}" method="post">
+
+			<!-- Ligne 1 -->
+			<div class="form-row">
+
+				<!-- 			type -->
+				<div class="form-group col-md-2">
+					<label for="inType" th:text="#{label.pages.resourceperson.category}"></label>
+					<select class="form-control" th:field="*{resourceType}"
+						required id="inType">
+						<option
+							th:each="type : ${T(com.wilkom.caurisapp.portfolio.entity.ResourcePerson.ResourceTypeEnum).values()}"
+							th:value="${type}" th:text="${type}"></option>
+					</select>
+				</div>
+
+				<!-- 				Nom -->
+				<div class="form-group col-md-4">
+					<label for="inLastN" th:text="#{person.lastname}"></label> <input
+						type="text" class="form-control" id="inLastN"
+						th:placeholder="#{person.lastname}" th:field="*{lastName}"
+						required>
+				</div>
+
+				<!-- 				Prennom -->
+				<div class="form-group col-md-4">
+					<label for="inFirstN" th:text="#{person.firstname}"></label> <input
+						type="text" class="form-control" id="inFirstN"
+						th:placeholder="#{person.firstname}" th:field="*{firstName}"
+						required>
+				</div>
+			</div>
+
+			<!-- 			2e ligne -->
+			<div class="form-row">
+
+				<!-- 			Type de pieceID -->
+				<div class="col-md-2">
+					<label for="inIDC" th:text="#{label.idcard.type}"></label> <select
+						class="form-control" th:field="*{idCard.type}" required
+						id="inIDC">
+						<option
+							th:each="type : ${T(com.wilkom.caurisapp.common.entity.Person.IDCardType).values()}"
+							th:value="${type}" th:text="${type}"></option>
+					</select>
+				</div>
+
+				<!-- 				Num card -->
+				<div class="col-md-2">
+					<label for="inIDN" th:text="#{label.idcard.number}"></label> <input
+						type="text" class="form-control" id="inIDN"
+						th:placeholder="#{label.idcard.number}"
+						th:field="*{idCard.number}" required>
+				</div>
+
+				<!-- Date d expiration -->
+				<div class="col-md-2">
+					<label for="inIDD" th:text="#{label.idcard.exiry}"></label> <input
+						type="date" class="form-control" id="inIDD"
+						th:placeholder="#{label.idcard.exiry}"
+						th:field="*{idCard.expiryDay}" required>
+				</div>
+
+				<!-- Date de naissance -->
+				<div class="col-md-2">
+					<label for="inBD" th:text="#{person.dateOfBirth}"></label> <input
+						type="date" class="form-control" id="inBD"
+						th:placeholder="#{person.dateOfBirth}"
+						th:field="*{birthID.birthDay}" required>
+				</div>
+
+				<!-- Nationalité -->
+				<div class="col-md-2">
+					<label for="inNa" th:text="#{conntry.nationality}"></label> <select
+						class="form-control" th:field="*{nationality.country}"
+						required id="inNa">
+						<option th:each="count : ${countries}" th:value="${count.code}"
+							th:text="${count.nom}"></option>
+					</select>
+				</div>
+			</div>
+
+			<!-- 			3e ligne -->
+			<div class="form-row">
+				<!-- 			Genre -->
+				<div class="col-md-2">
+					<label for="inG" th:text="#{person.gender}"></label> <select
+						class="form-control" th:field="*{gender}" required id="inG">
+						<option
+							th:each="type : ${T(com.wilkom.caurisapp.common.entity.gender).values()}"
+							th:value="${type}" th:text="${type}"></option>
+					</select>
+				</div>
+
+				<!-- 				Adresse -->
+				<div class="col-md-4">
+					<label for="inADR" th:text="#{person.adress}"></label> <input
+						type="text" class="form-control" id="inADR"
+						th:placeholder="#{person.adress}" th:field="*{adresse.street}"
+						required>
+				</div>
+
+				<!-- 				Tel -->
+				<div class="col-md-2">
+					<label for="inTel" th:text="#{adress.phone}"></label> <input
+						type="text" class="form-control" id="inADR"
+						th:placeholder="#{adress.phone}" th:field="*{adresse.phone}"
+						required>
+				</div>
+
+				<!-- 				Email -->
+				<div class="col-md-3">
+					<label for="inEmail" th:text="#{adress.email}"></label> <input
+						type="email" class="form-control" id="inEmail"
+						th:placeholder="#{adress.email}" th:field="*{adresse.email}"
+						required>
+				</div>
+			</div>
+
+
+			<br>
+			<button class="btn btn-success btn-sm" type="submit"
+				th:text="#{button.label.save}"></button>
+		</form>
+	</section>
+</body>
+</html>

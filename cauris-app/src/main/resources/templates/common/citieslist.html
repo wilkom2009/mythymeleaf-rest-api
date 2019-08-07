@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/fragments/template}">
+
+<head>
+<title th:text="#{label.pages.city.title}">Liste des roles</title>
+</head>
+<body id="page-top">
+	<section layout:fragment="content">
+
+		<div th:unless="${message == null}"
+			class="alert alert-success alert-dismissible fade show">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>Success!</strong> <span th:text="${message}"></span>
+		</div>
+
+		<!-- Breadcrumbs-->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
+			<li class="breadcrumb-item active" th:text="#{label.pages.city.title}">Roles</li>
+		</ol>
+
+		<div>
+			<a th:href="@{/cities/add}" class="btn btn-success"
+				th:title="#{button.label.new}"><i th:text="#{button.label.new}"></i></a>
+		</div>
+		<br>
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fas fa-table"></i>
+				<i th:text="#{label.pages.city.list}"></i> 
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table
+						class="table table-bordered table-sm table-stripped thead-light"
+						id="dataTable">
+						<thead>
+							<tr>
+								<th class="th-lg" th:text="#{label.pages.city.name}"></th>
+								<th class="th-lg" th:text="#{label.pages.city.country}"></th>
+								<th th:text="#{label.common.actions}"></th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th class="th-lg" th:text="#{label.pages.city.name}"></th>
+								<th class="th-lg" th:text="#{label.pages.city.country}"></th>
+								<th th:text="#{label.common.actions}"></th>
+							</tr>
+						</tfoot>
+						<tr th:each="city : ${cities}">
+							<td th:text="${city.name}"></td>
+							<td th:text="${city.country}"></td>
+							<td><a th:href="@{/cities/edit/{id}(id=${city.id})}"
+								class="btn btn-primary" th:title="#{button.label.edit}"><i
+									class="fa fa-edit fa-1x" aria-hidden="true"></i></a> <a
+								th:unless="${city.alone == false}"
+								th:href="@{/cities/delete/{id}(id=${city.id})}"
+								class="btn btn-danger" th:title="#{button.label.delete}"><i
+									class="fa fa-trash fa-1x" aria-hidden="true"></i></a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

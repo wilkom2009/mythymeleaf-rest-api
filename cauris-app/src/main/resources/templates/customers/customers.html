@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Spring Boot MVC Security using Thymeleaf</title>
+<link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+	<h3>Customers</h3>
+	<div>
+		Logged in user: <b th:inline="text" class="user">
+			[[${#httpServletRequest.remoteUser}]] </b>
+	</div>
+	<br />
+	<table class="table">
+		<tr th:each="customer : ${customers}">
+			<td th:text="${customer.firstName}">First Name</td>
+			<td th:text="${customer.lastName}">Last Name</td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/fragments/template}">
+
+<head>
+<title th:text="#{label.pages.city.title}"></title>
+</head>
+<body id="page-top">
+	<section layout:fragment="content">
+
+		<div th:unless="${message == null}"
+			class="alert alert-danger alert-dismissible fade show">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>Erreur!</strong> <span th:text="${message}"></span>
+		</div>
+
+		<!-- Breadcrumbs-->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
+			<li class="breadcrumb-item active"
+				th:text="#{label.pages.city.title}">Roles</li>
+		</ol>
+
+		<form class="needs-validation" th:action="@{/cities/update/{id}(id=${city.id})}"
+			th:object="${city}" method="post">
+			<div class="form-row">
+				<div class="col-md-4 mb-3">
+					<label for="nameId" th:text="#{label.pages.city.name}"></label> <input
+						type="text" class="form-control" id="nameId"
+						th:placeholder="#{label.pages.city.name}" th:field="*{name}"
+						required />
+					<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+						class="error">Looks good!</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-md-4 mb-3">
+					<label for="idc" th:text="#{label.pages.city.country}"></label> 
+					<select
+						class="form-control" th:field="*{country}" required id="idc">
+						<option th:each="count : ${countries}" th:value="${count.code}" th:text="${count.nom}"></option>
+					</select>
+				</div>
+			</div>
+			<button class="btn btn-success btn-sm" type="submit"
+				th:text="#{button.label.save}"></button>
+		</form>
+	</section>
+</body>
+</html>

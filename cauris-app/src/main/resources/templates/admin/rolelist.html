@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/fragments/template}">
+
+<head>
+<title>Liste des roles</title>
+</head>
+<body id="page-top">
+	<section layout:fragment="content">
+
+		<div th:unless="${message == null}"
+			class="alert alert-success alert-dismissible fade show">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>Success!</strong> <span th:text="${message}"></span>
+		</div>
+
+		<!-- 	<p th:text="${message}" th:unless="${message == null}"> -->
+
+		<!-- Breadcrumbs-->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
+			<li class="breadcrumb-item active" th:text="#{label.pages.role.list}">Roles</li>
+		</ol>
+
+		<div>
+			<a th:href="@{/roles/add}" class="btn btn-success"
+				th:title="#{button.label.new}"><i th:text="#{button.label.new}"></i></a>
+		</div>
+
+		<div class="card-body">
+			<div class="table-responsive">
+				<table
+					class="table table-bordered table-sm table-stripped thead-light"
+					id="dataTable">
+					<thead>
+						<tr>
+							<th class="th-lg" th:text="#{label.pages.role.name}"></th>
+							<th th:text="#{label.common.actions}">Edit</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th class="th-lg" th:text="#{label.pages.role.name}"></th>
+							<th th:text="#{label.common.actions}">Edit</th>
+						</tr>
+					</tfoot>
+					<tr th:each="role : ${roles}">
+						<td th:text="${role.name}">Name</td>
+						<td><a th:href="@{/roles/edit/{id}(id=${role.id})}"
+							class="btn btn-primary" th:title="#{button.label.edit}"><i
+								class="fa fa-edit fa-1x" aria-hidden="true"></i></a> <a
+							th:href="@{/roles/delete/{id}(id=${role.id})}"
+							class="btn btn-danger" th:title="#{button.label.delete}"><i
+								class="fa fa-trash fa-1x" aria-hidden="true"></i></a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/fragments/template}">
+
+<head>
+<title th:text="#{label.pages.resourceperson.title}"></title>
+<meta charset="UTF-8">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script>
+jQuery(document).ready(function() {
+		alert("Handler for .change() called.");
+	})
+</script>
+
+
+
+</head>
+<body id="page-top">
+	<section layout:fragment="content">
+
+		<div th:unless="${message == null}"
+			class="alert alert-danger alert-dismissible fade show">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong>Erreur!</strong> <span th:text="${message}"></span>
+		</div>
+
+		<!-- Breadcrumbs-->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
+			<li class="breadcrumb-item active"
+				th:text="#{label.pages.resourceperson.title}">Roles</li>
+		</ol>
+
+		<form>
+			<select name="sweets" multiple="multiple">
+				<option>Chocolate</option>
+				<option selected="selected">Candy</option>
+				<option>Taffy</option>
+				<option selected="selected">Caramel</option>
+				<option>Fudge</option>
+				<option>Cookie</option>
+			</select>
+			<div id="mdiv"></div>
+
+
+		</form>
+		<div id="other">Trigger the handler</div>
+		<div id="txtHint">Customer info will be listed here...</div>
+
+
+	</section>
+
+	<script>
+		$("select").change(function() {
+			var str = "";
+			$("select option:selected").each(function() {
+				str += $(this).text() + " ";
+			});
+			$("#mdiv").text(str);
+		}).change();
+	</script>
+
+	<script type="text/javascript">
+		jQuery(document).ready(function loadInsuranceCompanies() {
+			alert("City clic !");
+			var url = /*[[@{/countrycities}]]*/"/countrycities";
+			if ($('#inCountry').val() !== '') {
+				url = url + '/' + $('#inCountry').val();
+			}
+			$("#indCity").load(url);
+		});
+	</script>
+
+
+</body>
+</html>
